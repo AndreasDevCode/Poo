@@ -50,6 +50,9 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
+	const float dt = ft.Mark();
+
+
 	goal.UpdateColor();
 	if( isStarted && !isGameOver )
 	{
@@ -82,6 +85,27 @@ void Game::UpdateModel()
 	}
 }
 
+void Game::ComposeFrame()
+{
+	if (!isStarted)
+	{
+		DrawTitleScreen(325, 211);
+	}
+	else
+	{
+		goal.Draw(gfx);
+		for (int i = 0; i < nPoo; ++i)
+		{
+			poos[i].Draw(gfx);
+		}
+		dude.Draw(gfx);
+		if (isGameOver)
+		{
+			DrawGameOver(358, 268);
+		}
+		meter.Draw(gfx);
+	}
+}
 void Game::DrawGameOver( int x,int y )
 {
 	gfx.PutPixel( 49 + x,0 + y,0,146,14 );
@@ -28428,24 +28452,4 @@ void Game::DrawTitleScreen( int x,int y )
 	gfx.PutPixel( 149 + x,174 + y,208,34,34 );
 }
 
-void Game::ComposeFrame()
-{
-	if( !isStarted )
-	{
-		DrawTitleScreen( 325,211 );
-	}
-	else
-	{
-		goal.Draw( gfx );
-		for( int i = 0; i < nPoo; ++i )
-		{
-			poos[i].Draw( gfx );
-		}
-		dude.Draw( gfx );
-		if( isGameOver )
-		{
-			DrawGameOver( 358,268 );
-		}
-		meter.Draw( gfx );
-	}
-}
+
